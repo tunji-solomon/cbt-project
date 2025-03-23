@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { default as getHome } from "../controller/main"
+import studentRoute from './student'
 
 const router = Router()
 
-router.get("/home",)
+router.use('/student', studentRoute)
 
 export default router
 

@@ -1,1 +1,3 @@
-export {default as env} from "./env";
+import env from "./env";
+
+export {env}
