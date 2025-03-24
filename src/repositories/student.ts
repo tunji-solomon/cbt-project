@@ -21,6 +21,21 @@ class StudentRepo {
             }
         })
     }
+
+    async getPassword (parameter : any) : Promise<any>{
+        return await Student.scope("withPassword").findOne({
+            where : {
+               [Op.or] : [
+                {email : parameter},
+                {regNum : parameter}
+               ] 
+            },
+
+            attributes : {
+                exclude : ["createdAt", "UpdatedAt"]
+            }
+        })
+    }
 }
 
 export default StudentRepo
