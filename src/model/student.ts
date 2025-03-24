@@ -23,10 +23,6 @@ const Student = db.define<StudentModel, StudentPayload>(
         middlename : {
             type : DataTypes.STRING
         },
-        age : {
-            type : DataTypes.STRING,
-            allowNull : false
-        },
         gender : {
             type : DataTypes.STRING,
             allowNull : false
@@ -51,7 +47,23 @@ const Student = db.define<StudentModel, StudentPayload>(
 
     },
 
-    {timestamps : true}
+    {
+        timestamps : true,
+
+        defaultScope : {
+            attributes : {
+                exclude: ['password', 'updatedAt', 'createdAt']
+            }
+        },
+
+        scopes : {
+            withPassword : {
+                attributes : {
+                    include : ['password']
+                }
+            }
+        }
+    }
 )
 
 Student.beforeCreate(async (Student) => {

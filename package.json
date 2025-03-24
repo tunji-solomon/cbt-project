@@ -13,6 +13,7 @@
   "devDependencies": {
     "@types/express": "^5.0.0",
     "@types/joi": "^17.2.3",
+    "@types/jsonwebtoken": "^9.0.9",
     "@types/node": "^22.10.10",
     "@types/pg": "^8.11.11",
     "@types/sequelize": "^4.28.20",
@@ -24,6 +25,7 @@
     "bcryptjs": "^3.0.2",
     "express": "^4.21.2",
     "joi": "^17.13.3",
+    "jsonwebtoken": "^9.0.2",
     "pg": "^8.14.1",
     "sequelize": "^6.37.6",
     "sequelize-cli": "^6.6.2",
