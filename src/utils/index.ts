@@ -13,9 +13,19 @@ export const comparePassword = async (hashedPassword : string, plainPassword : s
     return bycrpt.compare(plainPassword, hashedPassword)
 }
 
-export const generateToken = (payload : any, time : any) : string => {
-    const token = jwt.sign({payload}, String(env.JWT_SECRET), { expiresIn : time})
+export const generateToken = (payload: any, time : any) : string => {
+    const token = jwt.sign(payload, String(env.JWT_SECRET), { expiresIn : time})
     return token
+}
+
+export const checkToken = (req : any) => {
+
+    if(req.headers.authorization && req.headers?.authorization.split(' ')[0] === 'Bearer'){
+        const token = req.headers?.authorization.split(' ')[1]
+        return token
+    }
+    console.log('no token present')
+    return null
 }
 
 

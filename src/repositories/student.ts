@@ -36,6 +36,11 @@ class StudentRepo {
             }
         })
     }
+
+    async update (payload : any, id : string) : Promise<object> {
+
+        return await Student.update( payload,{ where : { id }})
+    }
 }
 
 export default StudentRepo

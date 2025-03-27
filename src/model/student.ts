@@ -2,7 +2,8 @@ import { db } from "../datasource";
 import { StudentModel,StudentPayload } from "../interface";
 import { DataTypes, UUIDV4 } from "sequelize";
 import { hashPassword } from "../utils";
-import { Error } from "sequelize";
+import sequelize from "sequelize";
+import { ARRAY } from "sequelize";
 
 const Student = db.define<StudentModel, StudentPayload>(
     'student',
@@ -43,8 +44,14 @@ const Student = db.define<StudentModel, StudentPayload>(
         regNum : {
             type : DataTypes.STRING,
             allowNull : false
+        },
+        scoreCard : {
+            type : DataTypes.ARRAY(DataTypes.JSON)
+        },
+        score : {
+            type : DataTypes.INTEGER,
+            defaultValue : 0
         }
-
     },
 
     {
