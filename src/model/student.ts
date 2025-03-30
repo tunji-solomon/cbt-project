@@ -51,6 +51,10 @@ const Student = db.define<StudentModel, StudentPayload>(
         score : {
             type : DataTypes.INTEGER,
             defaultValue : 0
+        },
+        submitted : {
+            type : DataTypes.BOOLEAN,
+            defaultValue : false
         }
     },
 

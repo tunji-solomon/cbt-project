@@ -44,8 +44,15 @@ class QuestionService {
         const { regNumber, id } = res.locals.user
         const getQuestion = await this.questionRepo.findOne(questionId)
         const getStudent = await this.studentRepo.findByParameter(regNumber)
-        const isCorrect = await getQuestion.answer === answer
-        
+        const isCorrect = getQuestion.answer === answer
+
+        if(getStudent.submitted === true){
+            return res.status(400).json({
+                status : 'Failed',
+                message : 'You already submitted. wait for result.'
+            })
+        }
+
         const updateScoreCard = {
             questionId,
             optionSelected : answer,
@@ -63,12 +70,10 @@ class QuestionService {
                     const existingCorrect = getStudent.scoreCard[getStudent.scoreCard.indexOf(item)].correct
                     if(isCorrect === true && existingCorrect === false){
                         getStudent.score += 5
-                        console.log(getStudent.score)
     
                     }else if (isCorrect === false && existingCorrect === true){
                         if(getStudent.score > 0){
                             getStudent.score -= 5
-                            console.log(getStudent.score)
                         }else{
                             getStudent.score = 0
                         }
@@ -94,6 +99,35 @@ class QuestionService {
             status : 'Success',
             message : 'Answer submitted successfully'
         })
+    }
+
+    async submit (res : Response) :Promise<object>{
+        const { regNumber, id} = res.locals.user
+        const user = await this.studentRepo.findByParameter(regNumber)
+        await this.studentRepo.update({
+            submitted : true
+            },
+            id
+        )
+        return res.status(201).json({
+            status : 'Success',
+            meessage : 'you have successfully submitted your answer. GoodLuck'
+        })
+
+    }
+
+    async checkResult (res : Response): Promise<object> {
+        const { regNumber } = res.locals.user
+
+        const user = await this.studentRepo.findByParameter(regNumber)
+        const grade = user.score >= 90 ? 'A' : user.score >= 75 && user.score < 90 ? 'B' : 
+                        user.score >= 55 && user.score < 75 ? "C" : user.score >= 45 && user.score < 55 ?
+                        "D" : 'E'
+        return res.status(200).json({
+            status : 'Success',
+            message : `${user.lastname} your grade is ${grade}`
+        })
+
     }
 }
 

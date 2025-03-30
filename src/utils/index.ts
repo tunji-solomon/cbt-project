@@ -24,7 +24,6 @@ export const checkToken = (req : any) => {
         const token = req.headers?.authorization.split(' ')[1]
         return token
     }
-    console.log('no token present')
     return null
 }
 

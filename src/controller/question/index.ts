@@ -1,3 +1,5 @@
 export { default as addQuestion } from './add'
 export { default as fetchAllQusetion } from './fetchAll'
 export { default as attemptQuestion } from './attempt'
+export { default as submit } from './submit'
+export { default as checkResult } from './checkResult'

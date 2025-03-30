@@ -10,7 +10,8 @@ export interface StudentPayload {
     password? : string,
     regNum? : string,
     scoreCard? : any,
-    score? : number
+    score? : number,
+    submitted? : boolean
 }
 
 export interface QuestionPayload {
@@ -32,7 +33,8 @@ export interface StudentModel extends Sequelize.Model<StudentModel, StudentPaylo
     password : string,
     regNum : string,
     scoreCard : any,
-    score : number
+    score : number,
+    submitted : boolean
 
 }
 
