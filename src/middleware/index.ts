@@ -1,4 +1,4 @@
-import { NextFunction } from "express";
+import { NextFunction, Response } from "express";
 import { checkToken } from "../utils";
 import jwt,{ TokenExpiredError} from "jsonwebtoken";
 import { env } from "../config";
@@ -27,4 +27,16 @@ export const verifyToken = (req : any, res : any, next : NextFunction) => {
             badToken : true
         }) 
     }
+}
+
+export const isAdmin = (req : any, res : Response, next : NextFunction) : any => {
+
+    const { role } = res.locals.user
+
+    if (role !== 'admin') return res.status(400).json({
+        status : 'Failed',
+        message : 'Authorization denied. Permission not granted'
+    })
+
+    next()
 }

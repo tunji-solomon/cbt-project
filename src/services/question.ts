@@ -13,7 +13,7 @@ class QuestionService {
     }
 
     async add ( payload : any, res : Response ) : Promise<Object> {
-
+        
         const question = await this.questionRepo.add(payload)
 
         return res.status(201).json({
